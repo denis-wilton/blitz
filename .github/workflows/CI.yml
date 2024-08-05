@@ -53,5 +53,5 @@ jobs:
       - name: Deploy to Github Pages
         uses: actions/deploy-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./tmp/artifact
+          artifact-name: artifact
+          token: ${{ secrets.GITHUB_TOKEN }}
