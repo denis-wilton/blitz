@@ -49,6 +49,10 @@ jobs:
       pages: write
       id-token: write
 
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -56,15 +60,13 @@ jobs:
           name: artifact
           path: ./tmp/artifact
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "14"
-
-      - name: Install gh-pages
-        run: npm install -g gh-pages
+      - name: Show the content of the artifact
+        run: |
+          echo ${{ steps.deployment.outputs.page_url }}
+          pwd
+          ls -la ./tmp/artifact
+          cat ./tmp/artifact/index.html
 
       - name: Deploy to GitHub Pages
-        run: gh-pages -d ./tmp/artifact
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: deployment
+        uses: actions/deploy-pages@v4
