@@ -35,9 +35,8 @@ jobs:
 
       # Uploads the current root folder with the modified index.html file
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-pages-artifact
         with:
-          name: artifact
           path: .
 
   deploy:
@@ -54,19 +53,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: artifact
-          path: ./tmp/artifact
-
-      - name: Show the content of the artifact
-        run: |
-          echo ${{ steps.deployment.outputs.page_url }}
-          pwd
-          ls -la ./tmp/artifact
-          cat ./tmp/artifact/index.html
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
