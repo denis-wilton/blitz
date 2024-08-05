@@ -56,8 +56,18 @@ jobs:
           name: artifact
           path: ./tmp/artifact
 
-      - name: Deploy to Github Pages
-        uses: actions/deploy-pages@v4
+      - name: Unzip artifact
+        run: unzip ./tmp/artifact.zip -d ./artifact
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          artifact_name: artifact
-          token: ${{ secrets.GITHUB_TOKEN }}
+          node-version: "14"
+
+      - name: Install gh-pages
+        run: npm install -g gh-pages
+
+      - name: Deploy to GitHub Pages
+        run: gh-pages -d ./artifact
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
