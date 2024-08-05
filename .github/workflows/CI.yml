@@ -28,9 +28,9 @@ jobs:
       # Replace {{version}} with the version you want to use
       - name: Replace version
         run: |
-          local currentTime=$(date "+%Y%m%d%H%M%S")
-          local version="1.0.0"
-          local newVersion="${version}-${currentTime}"
+          currentTime=$(date "+%Y%m%d%H%M%S")
+          version="1.0.0"
+          newVersion="${version}-${currentTime}"
           sed -i "s/{{version}}/${newVersion}/g" index.html
 
       # Uploads the current root folder with the modified index.html file
