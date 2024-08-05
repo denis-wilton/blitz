@@ -33,6 +33,12 @@ jobs:
           newVersion="${version}-${currentTime}"
           sed -i "s/{{version}}/${newVersion}/g" index.html
 
+      - name: Test if the variables are accessible in this step
+        run: |
+          echo "Current time: $currentTime"
+          echo "Version: $version"
+          echo "New version: $newVersion"
+
       # Uploads the current root folder with the modified index.html file
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3.0.1
